@@ -12,7 +12,7 @@ const posts = (await getCollection('blog')).sort(
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
@@ -24,12 +24,32 @@ const posts = (await getCollection('blog')).sort(
 				display: flex;
 			}
 			ul li :global(time) {
-				flex: 0 0 130px;
 				font-style: italic;
-				color: #595959;
+				color: black;
 			}
-			ul li a:visited {
-				color: #8e32dc;
+
+			.post {
+				margin-top: 24px;
+				margin-bottom: 24px;
+				place-content: center;
+				border-radius: 8px;
+				border: 4px solid black;
+				background-color: #F8F1FF;
+				transition: .15s ease-in all;
+			}
+
+			.post:hover {
+				box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+				transform: translateY(-2px);
+			}
+
+			.post__container {
+				text-decoration: none;
+			}
+
+			.post__title {
+				margin-top: 16px;
+				color: black;
 			}
 		</style>
 	</head>
@@ -40,10 +60,11 @@ const posts = (await getCollection('blog')).sort(
 				<ul>
 					{
 						posts.map((post) => (
-							<li>
-								<FormattedDate date={post.data.pubDate} />
-								<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
-							</li>
+							<a class="post__container" href={`/blog/${post.slug}/`}>
+								<li class="post">
+									<h3 class="post__title">{post.data.title}</h3>
+								</li>
+							</a>
 						))
 					}
 				</ul>
