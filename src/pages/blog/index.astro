@@ -37,7 +37,8 @@ const posts = (await getCollection('blog')).sort(
 				transition: .15s ease-in all;
 			}
 
-			.post:hover {
+			.post:hover,
+			.post:focus-visible {
 				box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 				transform: translateY(-2px);
 			}
