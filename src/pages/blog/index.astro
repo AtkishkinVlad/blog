@@ -1,75 +1,77 @@
 ---
-import BaseHead from '../../components/BaseHead.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
-import { getCollection } from 'astro:content';
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
+const posts = (await getCollection("blog")).sort(
+  (a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
 );
 ---
 
 <!DOCTYPE html>
 <html lang="ru">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			ul {
-				list-style-type: none;
-				padding: unset;
-			}
-			ul li {
-				display: flex;
-			}
-			ul li :global(time) {
-				font-style: italic;
-				color: black;
-			}
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style>
+      ul {
+        list-style-type: none;
+        padding: unset;
+      }
+      ul li {
+        display: flex;
+      }
+      ul li :global(time) {
+        font-style: italic;
+        color: black;
+      }
 
-			.post {
-				margin-top: 24px;
-				margin-bottom: 24px;
-				place-content: center;
-				border-radius: 8px;
-				border: 4px solid black;
-				background-color: #F8F1FF;
-				transition: .15s ease-in all;
-			}
+      .post {
+        margin-top: 24px;
+        margin-bottom: 24px;
+        place-content: center;
+        border-radius: 8px;
+        border: 4px solid black;
+        background-color: #f8f1ff;
+        transition: 0.15s ease-in all;
+      }
 
-			.post:hover,
-			.post:focus-visible {
-				box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-				transform: translateY(-2px);
-			}
+      .post:hover,
+      .post:focus-visible {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        transform: translateY(-2px);
+      }
 
-			.post__container {
-				text-decoration: none;
-			}
+      .post__container {
+        text-decoration: none;
+      }
 
-			.post__title {
-				margin-top: 16px;
-				color: black;
-			}
-		</style>
-	</head>
-	<body>
-		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<a class="post__container" href={`/blog/${post.slug}/`}>
-								<li class="post">
-									<h3 class="post__title">{post.data.title}</h3>
-								</li>
-							</a>
-						))
-					}
-				</ul>
-			</section>
-		</main>
-		<Footer />
-	</body>
+      .post__title {
+        padding: 16px;
+        text-wrap: balance;
+        text-align: center;
+        color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <section>
+        <ul>
+          {
+            posts.map((post) => (
+              <a class="post__container" href={`/blog/${post.slug}/`}>
+                <li class="post">
+                  <h3 class="post__title">{post.data.title}</h3>
+                </li>
+              </a>
+            ))
+          }
+        </ul>
+      </section>
+    </main>
+    <Footer />
+  </body>
 </html>
